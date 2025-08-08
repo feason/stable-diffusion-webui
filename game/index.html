@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>贪吃蛇 Snake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>贪吃蛇</h1>
+        <div class="scores">
+          <div class="score"><span>分数</span><strong id="score">0</strong></div>
+          <div class="score"><span>最佳</span><strong id="best-score">0</strong></div>
+        </div>
+      </header>
+
+      <section class="stage">
+        <canvas id="game-canvas" width="480" height="480" aria-label="游戏画布" role="img"></canvas>
+        <div id="overlay" class="overlay" hidden>
+          <div class="overlay-content">
+            <h2 id="overlay-title">按开始</h2>
+            <p id="overlay-sub">方向键 / WASD 控制，手机支持滑动。</p>
+            <div class="overlay-actions">
+              <button id="start-btn" class="btn primary">开始游戏</button>
+              <button id="restart-btn" class="btn">重新开始</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="controls">
+          <button id="pause-btn" class="btn">暂停</button>
+        </div>
+        <p class="hint">键位：W/A/S/D 或 方向键。空格 暂停/继续。手机：滑动控制方向。</p>
+      </footer>
+    </main>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
