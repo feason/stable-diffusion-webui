@@ -179,3 +179,35 @@ Licenses for borrowed code can be found in `Settings -> Licenses` screen, and al
 - Hypertile - tfernd - https://github.com/tfernd/HyperTile
 - Initial Gradio script - posted on 4chan by an Anonymous user. Thank you Anonymous user.
 - (You)
+
+# 贪吃蛇小游戏
+
+一个零依赖的浏览器小游戏，使用 HTML5 Canvas + 原生 JavaScript 构建。
+
+## 运行
+
+在本地启动一个静态服务器即可（推荐 Python 方式）：
+
+```bash
+cd /workspace/game
+python3 -m http.server 8000
+```
+
+打开浏览器访问：`http://localhost:8000`
+
+如果你的环境有 Node.js，也可以：
+
+```bash
+npx --yes serve -l 8000 .
+```
+
+## 操作
+
+- 键盘：W/A/S/D 或 方向键 控制方向，空格 暂停/继续；在未开始或结束时按空格可重新开始。
+- 触控：滑动控制方向。
+
+## 玩法
+
+- 吃到食物加 1 分并变长，撞墙或撞到自己则游戏结束。
+- 每 5 分速度略微提升。
+- 最佳分数会自动保存在浏览器的 localStorage。
