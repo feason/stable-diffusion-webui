@@ -4,33 +4,60 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using UnityEngine;
 
+/// <summary>
+/// 数据库连接管理器
+/// 功能：管理MySQL数据库连接，提供用户数据的增删改查操作
+/// 目的：封装数据库操作，提供安全的数据访问接口，自动处理数据库初始化
+/// 设计模式：单例模式，确保全局只有一个数据库连接管理器
+/// </summary>
 public class DatabaseManager : MonoBehaviour
 {
-    [Header("Database Configuration")]
+    // ==================== 数据库配置参数 ====================
+    [Header("数据库连接配置")]
+    [Tooltip("MySQL服务器地址")]
     public string server = "localhost";
+    [Tooltip("数据库名称")]
     public string database = "unity_login_system";
+    [Tooltip("数据库用户名")]
     public string username = "root";
+    [Tooltip("数据库密码")]
     public string password = "";
+    [Tooltip("数据库端口号")]
     public int port = 3306;
 
-    private string connectionString;
+    // ==================== 内部变量 ====================
+    private string connectionString; // 数据库连接字符串
 
+    /// <summary>
+    /// Unity生命周期 - 对象唤醒时调用
+    /// 功能：实现单例模式，初始化数据库连接
+    /// 目的：确保整个游戏中只有一个数据库管理器实例
+    /// </summary>
     void Awake()
     {
-        // 单例模式
+        // ==================== 单例模式实现 ====================
+        // 检查是否已存在其他DatabaseManager实例
         if (FindObjectsOfType<DatabaseManager>().Length > 1)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // 销毁重复的实例
             return;
         }
         
-        DontDestroyOnLoad(gameObject);
-        InitializeConnection();
+        // ==================== 持久化设置 ====================
+        DontDestroyOnLoad(gameObject); // 场景切换时不销毁此对象
+        
+        // ==================== 初始化连接配置 ====================
+        InitializeConnection(); // 构建数据库连接字符串
     }
 
+    /// <summary>
+    /// Unity生命周期 - 对象启动时调用
+    /// 功能：初始化数据库结构
+    /// 目的：确保数据库和表结构存在
+    /// </summary>
     void Start()
     {
-        InitializeDatabase();
+        InitializeDatabase(); // 创建数据库和表结构
     }
 
     private void InitializeConnection()

@@ -4,47 +4,73 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// 登录管理器 - 核心业务逻辑控制器
+/// 功能：处理用户登录、注册、会话管理等核心业务逻辑
+/// 目的：作为UI和数据库之间的中间层，封装复杂的业务逻辑
+/// 特性：单例模式、密码加密、会话持久化、异步操作
+/// 安全性：SHA256密码哈希、会话过期管理、输入验证
+/// </summary>
 public class LoginManager : MonoBehaviour
 {
-    [Header("References")]
+    // ==================== 组件引用配置 ====================
+    [Header("组件引用")]
+    [Tooltip("数据库管理器引用")]
     public DatabaseManager databaseManager;
     
-    [Header("Session Settings")]
+    // ==================== 会话管理配置 ====================
+    [Header("会话管理设置")]
+    [Tooltip("是否记住用户登录状态（重启后自动登录）")]
     public bool rememberSession = true;
     
-    private UserSession currentSession;
-    private const string SESSION_KEY = "UserSession";
+    // ==================== 内部变量 ====================
+    private UserSession currentSession;              // 当前用户会话
+    private const string SESSION_KEY = "UserSession"; // 会话数据存储键名
 
+    /// <summary>
+    /// Unity生命周期 - 对象唤醒时调用
+    /// 功能：实现单例模式，确保全局唯一性
+    /// 目的：防止多个LoginManager实例同时存在
+    /// </summary>
     void Awake()
     {
-        // 单例模式
+        // ==================== 单例模式实现 ====================
         if (FindObjectsOfType<LoginManager>().Length > 1)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // 销毁重复实例
             return;
         }
         
-        DontDestroyOnLoad(gameObject);
+        // ==================== 跨场景持久化 ====================
+        DontDestroyOnLoad(gameObject); // 场景切换时保持存在
     }
 
+    /// <summary>
+    /// Unity生命周期 - 对象启动时调用
+    /// 功能：初始化会话系统，建立组件引用
+    /// 目的：准备登录系统的运行环境
+    /// </summary>
     void Start()
     {
+        // ==================== 初始化用户会话 ====================
         currentSession = new UserSession();
         
+        // ==================== 自动查找数据库管理器 ====================
         if (databaseManager == null)
         {
             databaseManager = FindObjectOfType<DatabaseManager>();
         }
         
+        // ==================== 验证组件依赖 ====================
         if (databaseManager == null)
         {
             Debug.LogError("找不到 DatabaseManager！请确保场景中有 DatabaseManager 组件。");
         }
         
-        // 尝试恢复会话
+        // ==================== 恢复上次登录会话 ====================
         if (rememberSession)
         {
-            LoadSession();
+            LoadSession(); // 尝试从本地存储恢复用户会话
         }
     }
 

@@ -2,30 +2,65 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// 这个脚本用于帮助快速设置登录UI的样式和布局
-// 在Editor模式下运行，不会包含在最终构建中
+/// <summary>
+/// 登录UI样式设置辅助工具
+/// 功能：提供可视化的UI样式配置，快速应用统一的界面风格
+/// 目的：简化UI设计流程，确保界面风格的一致性
+/// 使用场景：开发阶段的UI美化，支持实时预览和批量应用样式
+/// 注意：这个脚本主要用于Editor模式下的UI配置，不会影响最终构建
+/// </summary>
 public class LoginUISetup : MonoBehaviour
 {
-    [Header("UI Style Configuration")]
-    [SerializeField] private Color primaryColor = new Color(0.2f, 0.6f, 1f, 1f);      // 主色调
-    [SerializeField] private Color secondaryColor = new Color(0.8f, 0.8f, 0.8f, 1f);  // 次要色调
-    [SerializeField] private Color backgroundColor = new Color(0.1f, 0.1f, 0.2f, 0.9f); // 背景色
-    [SerializeField] private Color textColor = Color.white;                            // 文字颜色
-    [SerializeField] private Color errorColor = new Color(1f, 0.3f, 0.3f, 1f);       // 错误提示颜色
-    [SerializeField] private Color successColor = new Color(0.3f, 1f, 0.3f, 1f);     // 成功提示颜色
+    // ==================== UI颜色配置 ====================
+    [Header("UI颜色样式配置")]
+    [SerializeField] [Tooltip("主要按钮和强调元素的颜色")]
+    private Color primaryColor = new Color(0.2f, 0.6f, 1f, 1f);      // 主色调 - 蓝色
+    
+    [SerializeField] [Tooltip("次要按钮和辅助元素的颜色")]
+    private Color secondaryColor = new Color(0.8f, 0.8f, 0.8f, 1f);  // 次要色调 - 灰色
+    
+    [SerializeField] [Tooltip("面板和容器的背景颜色")]
+    private Color backgroundColor = new Color(0.1f, 0.1f, 0.2f, 0.9f); // 背景色 - 深蓝色
+    
+    [SerializeField] [Tooltip("普通文本的颜色")]
+    private Color textColor = Color.white;                            // 文字颜色 - 白色
+    
+    [SerializeField] [Tooltip("错误提示信息的颜色")]
+    private Color errorColor = new Color(1f, 0.3f, 0.3f, 1f);       // 错误提示颜色 - 红色
+    
+    [SerializeField] [Tooltip("成功提示信息的颜色")]
+    private Color successColor = new Color(0.3f, 1f, 0.3f, 1f);     // 成功提示颜色 - 绿色
 
-    [Header("Font Settings")]
-    [SerializeField] private TMP_FontAsset titleFont;
-    [SerializeField] private TMP_FontAsset normalFont;
-    [SerializeField] private int titleFontSize = 24;
-    [SerializeField] private int normalFontSize = 16;
-    [SerializeField] private int buttonFontSize = 18;
+    // ==================== 字体配置 ====================
+    [Header("字体样式配置")]
+    [SerializeField] [Tooltip("标题文本使用的字体资源")]
+    private TMP_FontAsset titleFont;
+    
+    [SerializeField] [Tooltip("普通文本使用的字体资源")]
+    private TMP_FontAsset normalFont;
+    
+    [SerializeField] [Tooltip("标题文本的字体大小")]
+    private int titleFontSize = 24;
+    
+    [SerializeField] [Tooltip("普通文本的字体大小")]
+    private int normalFontSize = 16;
+    
+    [SerializeField] [Tooltip("按钮文本的字体大小")]
+    private int buttonFontSize = 18;
 
-    [Header("Layout Settings")]
-    [SerializeField] private Vector2 panelSize = new Vector2(400, 500);
-    [SerializeField] private float elementSpacing = 20f;
-    [SerializeField] private float buttonHeight = 50f;
-    [SerializeField] private float inputFieldHeight = 40f;
+    // ==================== 布局配置 ====================
+    [Header("布局尺寸配置")]
+    [SerializeField] [Tooltip("登录面板的整体尺寸")]
+    private Vector2 panelSize = new Vector2(400, 500);
+    
+    [SerializeField] [Tooltip("UI元素之间的间距")]
+    private float elementSpacing = 20f;
+    
+    [SerializeField] [Tooltip("按钮的标准高度")]
+    private float buttonHeight = 50f;
+    
+    [SerializeField] [Tooltip("输入框的标准高度")]
+    private float inputFieldHeight = 40f;
 
     // 应用样式配置到UI元素
     [ContextMenu("Apply UI Styling")]
